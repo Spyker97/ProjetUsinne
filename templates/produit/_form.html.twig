@@ -54,25 +54,25 @@
 
 
 {{ form_start(form) }}
-    {{ form_label(form.refComplete) }} <br>
+    {{ form_label(form.refComplete,'Refrence Complete') }} <br>
     {{ form_widget(form.refComplete, {'attr': {'class': 'inputF'}}) }}<br>
-    {{ form_label(form.numCs) }} <br>
+    {{ form_label(form.numCs,'Numero Cs') }} <br>
     {{ form_widget(form.numCs, {'attr': {'class': 'inputF'}}) }}<br>
-    {{ form_label(form.refPrincipale) }} <br>
+    {{ form_label(form.refPrincipale,'Reference Principal') }} <br>
     {{ form_widget(form.refPrincipale, {'attr': {'class': 'inputF'}}) }}<br>
-    {{ form_label(form.designation) }} <br>
+    {{ form_label(form.designation,'Désignation') }} <br>
     {{ form_widget(form.designation, {'attr': {'class': 'inputF'}}) }}<br>
     {{ form_label(form.quantite) }} <br>
     {{ form_widget(form.quantite, {'attr': {'class': 'inputF'}}) }}<br>
-    {{ form_label(form.qteExpedie) }} <br>
+    {{ form_label(form.qteExpedie,'quantite expedite') }} <br>
     {{ form_widget(form.qteExpedie, {'attr': {'class': 'inputF'}}) }}<br>
-    {{ form_label(form.tempsGamme) }} <br>
+    {{ form_label(form.tempsGamme,'Temps de Gamme') }} <br>
     {{ form_widget(form.tempsGamme, {'attr': {'class': 'inputF'}}) }}<br>
-    {{ form_label(form.datePrevu) }} <br>
+    {{ form_label(form.datePrevu,'Date Prevu') }} <br>
     {{ form_widget(form.datePrevu, {'attr': {'class': 'inputF'}}) }}<br>
     {{ form_label(form.tempsFacture) }} <br>
     {{ form_widget(form.tempsFacture, {'attr': {'class': 'inputF'}}) }}<br>
-    {{ form_label(form.PU) }} <br>
+    {{ form_label(form.PU,'Prix Unitaire') }} <br>
     {{ form_widget(form.PU, {'attr': {'class': 'inputF'}}) }}<br>
 
     <button class="button-81" role="button">{{ button_label|default('Save') }}</button>

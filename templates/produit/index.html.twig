@@ -1,8 +1,7 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.admin.html.twig' %}
 
-{% block title %}Produit index{% endblock %}
 
-{% block body %}
+{% block change %}
     <h1>Produit index</h1>
 
     <table class="table">
@@ -39,6 +38,8 @@
                 <td>
                     <a href="{{ path('app_produit_show', {'id': produit.id}) }}">show</a>
                     <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">edit</a>
+                    <a href="{{ path('app_produit_delete', {'id': produit.id}) }}">delete</a>
+
                 </td>
             </tr>
         {% else %}

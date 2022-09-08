@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * @ORM\Entity(repositoryClass=ProduitRepository::class)
+ * @UniqueEntity(fields={"refPrincipale"}, message="refPrincipale is deja exist")
  */
 class Produit
 {
@@ -197,9 +198,11 @@ class Produit
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
         $metadata->addConstraint(new UniqueEntity([
-            'fields' => ['refComplete', 'refPrincipale'],
-            'errorPath' => 'port',
-            'message' => 'This refComplete or refPrincipale is already in use on that host.',
+            'fields' => ['refComplete'],
+            'errorPath' =>'refComplete',
+            'message' => 'This refComplete  is already in use on that host.',
         ]));
     }
+
+
 }
