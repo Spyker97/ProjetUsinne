@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produit index{% endblock %}
+
+{% block body %}
+    <h1>Produit index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>RefComplete</th>
+                <th>NumCs</th>
+                <th>RefPrincipale</th>
+                <th>Designation</th>
+                <th>Quantite</th>
+                <th>QteExpedie</th>
+                <th>TempsGamme</th>
+                <th>DatePrevu</th>
+                <th>TempsFacture</th>
+                <th>PU</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for produit in produits %}
+            <tr>
+                <td>{{ produit.id }}</td>
+                <td>{{ produit.refComplete }}</td>
+                <td>{{ produit.numCs }}</td>
+                <td>{{ produit.refPrincipale }}</td>
+                <td>{{ produit.designation }}</td>
+                <td>{{ produit.quantite }}</td>
+                <td>{{ produit.qteExpedie }}</td>
+                <td>{{ produit.tempsGamme }}</td>
+                <td>{{ produit.datePrevu ? produit.datePrevu|date('Y-m-d') : '' }}</td>
+                <td>{{ produit.tempsFacture }}</td>
+                <td>{{ produit.PU }}</td>
+                <td>
+                    <a href="{{ path('app_produit_show', {'id': produit.id}) }}">show</a>
+                    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_produit_new') }}">Create new</a>
+{% endblock %}

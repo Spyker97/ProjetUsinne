@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * @ORM\Entity(repositoryClass=ProduitRepository::class)
@@ -190,5 +192,14 @@ class Produit
         $this->PU = $PU;
 
         return $this;
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addConstraint(new UniqueEntity([
+            'fields' => ['refComplete', 'refPrincipale'],
+            'errorPath' => 'port',
+            'message' => 'This refComplete or refPrincipale is already in use on that host.',
+        ]));
     }
 }
