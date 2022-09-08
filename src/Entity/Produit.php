@@ -70,6 +70,11 @@ class Produit
      */
     private $PU;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=ProduitName::class, inversedBy="produits")
+     */
+    private $produitName;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -202,6 +207,18 @@ class Produit
             'errorPath' =>'refComplete',
             'message' => 'This refComplete  is already in use on that host.',
         ]));
+    }
+
+    public function getProduitName(): ?ProduitName
+    {
+        return $this->produitName;
+    }
+
+    public function setProduitName(?ProduitName $produitName): self
+    {
+        $this->produitName = $produitName;
+
+        return $this;
     }
 
 

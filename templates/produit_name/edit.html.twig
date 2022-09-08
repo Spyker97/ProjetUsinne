@@ -1,0 +1,14 @@
+{% extends 'base.admin.html.twig' %}
+
+
+{% block change %}
+    <h1>Edit ProduitName</h1>
+    <div style="text-align: center;">
+
+        {{ include('produit_name/_form.html.twig', {'button_label': 'Update'}) }}
+    </div>
+
+    <a href="{{ path('app_produit_name_index') }}">back to list</a>
+
+    {{ include('produit_name/_delete_form.html.twig') }}
+{% endblock %}

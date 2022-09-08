@@ -1,0 +1,34 @@
+{% extends 'base.admin.html.twig' %}
+
+
+{% block change %}
+    <h1>ProduitName index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>ProduitName</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for produit_name in produit_names %}
+            <tr>
+                <td>{{ produit_name.id }}</td>
+                <td>{{ produit_name.produitName }}</td>
+                <td>
+                    <a href="{{ path('app_produit_name_show', {'id': produit_name.id}) }}">show</a>
+                    <a href="{{ path('app_produit_name_edit', {'id': produit_name.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_produit_name_new') }}">Create new</a>
+{% endblock %}
