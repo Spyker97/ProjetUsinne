@@ -52,11 +52,13 @@ class ProduitController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()&&$form->get('produitName')->getData()) {
+            $nameP = $form->get('produitName')->getData()->getProduitName();
             $produits = $form->get('produitName')->getData()->getProduits();
         }
 
         else{
             $produits=$produitRepository->findAll() ;
+            $nameP="";
         }
 
 
@@ -66,6 +68,7 @@ class ProduitController extends AbstractController
         return $this->render('produit/index.html.twig', [
             'produits' => $produits,
             'form' => $form->createView(),
+            'nameP'=>$nameP,
 
         ]);
     }

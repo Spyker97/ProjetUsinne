@@ -6,10 +6,14 @@
     {{ form_start(form) }}
     {{ form_widget(form) }}
     {{ form_end(form) }}
-
-
+{% if nameP!="" %}
+    <div style="background-color: #5c5cf5 ; text-align: center ; height: 35px">
+        <h2 style="padding-top: 6px ; color: black">{{ nameP }}</h2>
+    </div>
+{% endif %}
     <table class="table">
         <thead>
+
             <tr>
 
                 <th>RefComplete</th>
