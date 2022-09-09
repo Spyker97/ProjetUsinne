@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Produit;
+use App\Entity\ProduitName;
 use App\Form\ProduitType;
 use App\Repository\ProduitRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,12 +19,54 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProduitController extends AbstractController
 {
     /**
-     * @Route("/", name="app_produit_index", methods={"GET"})
+     * @Route("/", name="app_produit_index", methods={"GET","POST"})
      */
-    public function index(ProduitRepository $produitRepository): Response
+    public function index(ProduitRepository $produitRepository , Request $request): Response
     {
+
+        /**
+         * Rcherche
+        **/
+
+        $form = $this->createFormBuilder()
+
+            ->add('produitName', EntityType::class, array(
+                'class' => ProduitName::class,
+                'choice_label' => 'produitName',
+                'required' => false
+            ))
+            ->add('recherche', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-primary'
+                ]
+            ])
+            ->getForm();
+        $form2 = $this->createFormBuilder()
+
+            ->add('Annuler', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-danger'
+                ]
+            ])
+            ->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()&&$form->get('produitName')->getData()) {
+            $produits = $form->get('produitName')->getData()->getProduits();
+        }
+
+        else{
+            $produits=$produitRepository->findAll() ;
+        }
+
+
+
+        /** end  */
+
         return $this->render('produit/index.html.twig', [
-            'produits' => $produitRepository->findAll(),
+            'produits' => $produits,
+            'form' => $form->createView(),
+
         ]);
     }
 

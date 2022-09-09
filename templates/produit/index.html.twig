@@ -2,12 +2,16 @@
 
 
 {% block change %}
-    <h1>Produit index</h1>
+    <h1>Produits</h1>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+
                 <th>RefComplete</th>
                 <th>NumCs</th>
                 <th>RefPrincipale</th>
@@ -18,13 +22,14 @@
                 <th>DatePrevu</th>
                 <th>TempsFacture</th>
                 <th>PU</th>
+                <th>Nom Prdoduit</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for produit in produits %}
             <tr>
-                <td>{{ produit.id }}</td>
+
                 <td>{{ produit.refComplete }}</td>
                 <td>{{ produit.numCs }}</td>
                 <td>{{ produit.refPrincipale }}</td>
@@ -35,6 +40,7 @@
                 <td>{{ produit.datePrevu ? produit.datePrevu|date('Y-m-d') : '' }}</td>
                 <td>{{ produit.tempsFacture }}</td>
                 <td>{{ produit.PU }}</td>
+                <td>{{ produit.produitName.produitName }}</td>
                 <td>
                     <a href="{{ path('app_produit_show', {'id': produit.id}) }}">show</a>
                     <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">edit</a>
@@ -51,4 +57,8 @@
     </table>
 
     <a href="{{ path('app_produit_new') }}">Create new</a>
+
+
+
+
 {% endblock %}
