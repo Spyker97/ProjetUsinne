@@ -1,0 +1,30 @@
+{% extends 'base.login.html.twig'%}
+
+{% block email %}
+    <form id="stripe-login" method="post">
+        <div class="field padding-bottom--24">
+
+            <label for="inputEmail">Email</label>
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+
+        </div>
+        <div class="field padding-bottom--24">
+            <div class="grid--50-50">
+
+                <label for="inputPassword">Password</label>
+
+            </div>
+            <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+        </div>
+
+        <input type="hidden" name="_csrf_token"
+               value="{{ csrf_token('authenticate') }}"
+        >
+        <div class="field padding-bottom--24">
+            <input type="submit" name="submit">
+
+        </div>
+    </form>
+{% endblock %}
+

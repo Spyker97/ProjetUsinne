@@ -1,0 +1,12 @@
+{% extends 'base.admin.html.twig' %}
+
+
+{% block chande %}
+    <h1>Edit Colisage</h1>
+    <div style="text-align: center;">
+    {{ include('colisage/_form.html.twig', {'button_label': 'Update'}) }}
+    </div>
+    <a href="{{ path('app_colisage_index') }}">back to list</a>
+
+    {{ include('colisage/_delete_form.html.twig') }}
+{% endblock %}

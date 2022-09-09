@@ -1,0 +1,41 @@
+{% extends 'base.admin.html.twig' %}
+
+
+{% block change %}
+    <h1>Colisage</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ colisage.id }}</td>
+            </tr>
+            <tr>
+                <th>Reference</th>
+                <td>{{ colisage.reference }}</td>
+            </tr>
+            <tr>
+                <th>Quantite</th>
+                <td>{{ colisage.quantite }}</td>
+            </tr>
+            <tr>
+                <th>Remarque</th>
+                <td>{{ colisage.remarque }}</td>
+            </tr>
+            <tr>
+                <th>Colisage</th>
+                <td>{{ colisage.colisage }}</td>
+            </tr>
+            <tr>
+                <th>NumColi</th>
+                <td>{{ colisage.numColi }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_colisage_index') }}">back to list</a>
+
+    <a href="{{ path('app_colisage_edit', {'id': colisage.id}) }}">edit</a>
+
+    {{ include('colisage/_delete_form.html.twig') }}
+{% endblock %}

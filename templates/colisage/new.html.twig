@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+
+{% block change %}
+    <h1>Create new Colisage</h1>
+<div style="text-align: center;">
+    {{ include('colisage/_form.html.twig') }}
+</div>
+    <a href="{{ path('app_colisage_index') }}">back to list</a>
+{% endblock %}
