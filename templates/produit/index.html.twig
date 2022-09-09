@@ -1,0 +1,68 @@
+{% extends 'base.admin.html.twig' %}
+
+
+{% block change %}
+    <h1>Produits</h1>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+{% if nameP!="" %}
+    <div style="background-color: #5c5cf5 ; text-align: center ; height: 35px">
+        <h2 style="padding-top: 6px ; color: black">{{ nameP }}</h2>
+    </div>
+{% endif %}
+    <table class="table">
+        <thead>
+
+            <tr>
+
+                <th>RefComplete</th>
+                <th>NumCs</th>
+                <th>RefPrincipale</th>
+                <th>Designation</th>
+                <th>Quantite</th>
+                <th>QteExpedie</th>
+                <th>TempsGamme</th>
+                <th>DatePrevu</th>
+                <th>TempsFacture</th>
+                <th>PU</th>
+                <th>Nom Prdoduit</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for produit in produits %}
+            <tr>
+
+                <td>{{ produit.refComplete }}</td>
+                <td>{{ produit.numCs }}</td>
+                <td>{{ produit.refPrincipale }}</td>
+                <td>{{ produit.designation }}</td>
+                <td>{{ produit.quantite }}</td>
+                <td>{{ produit.qteExpedie }}</td>
+                <td>{{ produit.tempsGamme }}</td>
+                <td>{{ produit.datePrevu ? produit.datePrevu|date('Y-m-d') : '' }}</td>
+                <td>{{ produit.tempsFacture }}</td>
+                <td>{{ produit.PU }}</td>
+                <td>{{ produit.produitName.produitName }}</td>
+                <td>
+                    <a href="{{ path('app_produit_show', {'id': produit.id}) }}">show</a>
+                    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">edit</a>
+                    <a href="{{ path('app_produit_delete', {'id': produit.id}) }}">delete</a>
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_produit_new') }}">Create new</a>
+
+
+
+
+{% endblock %}

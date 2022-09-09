@@ -1,0 +1,16 @@
+{% extends 'base.admin.html.twig' %}
+
+
+{% block change %}
+
+
+
+
+    <h1>Create new Societe</h1>
+    <div style="text-align: center;">
+
+
+    {{ include('societe/_form.html.twig') }}
+    </div>
+    <a href="{{ path('app_societe_index') }}">back to list</a>
+{% endblock %}

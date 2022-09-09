@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * @ORM\Entity(repositoryClass=ProduitRepository::class)
+ * @UniqueEntity(fields={"refPrincipale"}, message="refPrincipale is deja exist")
  */
 class Produit
 {
@@ -66,6 +69,11 @@ class Produit
      * @ORM\Column(type="float")
      */
     private $PU;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=ProduitName::class, inversedBy="produits")
+     */
+    private $produitName;
 
     public function getId(): ?int
     {
@@ -191,4 +199,27 @@ class Produit
 
         return $this;
     }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addConstraint(new UniqueEntity([
+            'fields' => ['refComplete'],
+            'errorPath' =>'refComplete',
+            'message' => 'This refComplete  is already in use on that host.',
+        ]));
+    }
+
+    public function getProduitName(): ?ProduitName
+    {
+        return $this->produitName;
+    }
+
+    public function setProduitName(?ProduitName $produitName): self
+    {
+        $this->produitName = $produitName;
+
+        return $this;
+    }
+
+
 }
