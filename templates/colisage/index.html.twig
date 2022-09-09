@@ -1,0 +1,41 @@
+{% extends 'base.admin.html.twig' %}
+
+{% block change %}
+    <h1>Colisage index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Reference</th>
+                <th>Quantite</th>
+                <th>Remarque</th>
+                <th>Colisage</th>
+                <th>NumColi</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for colisage in colisages %}
+            <tr>
+                <td>{{ colisage.id }}</td>
+                <td>{{ colisage.reference }}</td>
+                <td>{{ colisage.quantite }}</td>
+                <td>{{ colisage.remarque }}</td>
+                <td>{{ colisage.colisage }}</td>
+                <td>{{ colisage.numColi }}</td>
+                <td>
+                    <a href="{{ path('app_colisage_show', {'id': colisage.id}) }}">show</a>
+                    <a href="{{ path('app_colisage_edit', {'id': colisage.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_colisage_new') }}">Create new</a>
+{% endblock %}
