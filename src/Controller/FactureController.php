@@ -18,7 +18,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Dompdf\Dompdf;
+use Dompdf\Options;
 /**
  * @Route("/facture")
  */
@@ -68,11 +69,11 @@ class FactureController extends AbstractController
 
                 'required' => false
             ))
-            ->add('netpay', NumberType::class, array(
+         /*   ->add('netpay', NumberType::class, array(
 
 
                 'required' => false
-            ))
+            ))*/
             ->add('nbrpaleete', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
 
 
@@ -142,6 +143,50 @@ class FactureController extends AbstractController
                 'required' => false,
                 'empty_data'=>0
             ))
+            ->add('ref4', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+
+
+                'required' => false
+            ))
+            ->add('factExp4', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+
+
+                'required' => false
+            ))
+            ->add('decldou4', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+
+
+                'required' => false
+            ))
+
+            ->add('qte4', NumberType::class, array(
+
+
+                'required' => false,
+                'empty_data'=>0
+            ))
+            ->add('ref5', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+
+
+                'required' => false
+            ))
+            ->add('factExp5', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+
+
+                'required' => false
+            ))
+            ->add('decldou5', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+
+
+                'required' => false
+            ))
+
+            ->add('qte5', NumberType::class, array(
+
+
+                'required' => false,
+                'empty_data'=>0
+            ))
             ->add("Save",SubmitType::class)
 
 
@@ -158,7 +203,9 @@ class FactureController extends AbstractController
             $facture->setAdressFab($form2->get('adrfab')->getData());
             $facture->setAdressLiv($form2->get('adrliv')->getData());
             $facture->setNbrPalette($form2->get('nbrpaleete')->getData());
-            $facture->setNetPayer($form2->get('netpay')->getData());
+            /*$facture->setNetPayer($form2->get('netpay')->getData());*/
+            $facture->setNetPayer(0);
+
             $facture->setTypefac($form2->get('typefac')->getData());
 
             if ($form2->get($ref."1")->getData()) {
@@ -169,7 +216,7 @@ class FactureController extends AbstractController
 
             // return $this->redirectToRoute('app_facture_index', [], Response::HTTP_SEE_OTHER);
             $s=0 ;
-            for( $i=1;$i<=3 ;$i++){
+            for( $i=1;$i<=5 ;$i++){
                 $prodfact=new ProdFact();
                 if ($form2->get($ref."{$i}")->getData()){
 
@@ -244,12 +291,71 @@ class FactureController extends AbstractController
     /**
      * @Route("/{id}", name="app_facture_delete", methods={"POST"})
      */
-    public function delete(Request $request, Facture $facture, FactureRepository $factureRepository): Response
+    public function delete(Request $request, Facture $facture, FactureRepository $factureRepository , ProduitRepository $produitRepository): Response
     {
+
+        foreach ($facture->getProdFacts() as $pf){
+                $prd = $pf->getProdId();
+                $prd->setQteExpedie($prd->getQteExpedie()-$pf->getQuantity());
+                $produitRepository->add($prd, true);
+
+        }
         if ($this->isCsrfTokenValid('delete'.$facture->getId(), $request->request->get('_token'))) {
             $factureRepository->remove($facture, true);
         }
 
         return $this->redirectToRoute('app_facture_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+
+    /**
+     * @Route("/listpdf/{id}", name="app_facture_pdf", methods={"GET"})
+     */
+    public function listpdf(FactureRepository $factureRepository , ProdFactRepository $prodFactRepository , $id): Response
+    {
+        $fact = $factureRepository->find($id);
+        $prodfacr=$fact->getProdFacts();
+
+        //pdf
+
+        $path='C:\wamp64\www\ProjetUsinne\public\facttt-1.jpg';
+        $type=pathinfo($path,PATHINFO_EXTENSION);
+        $data=file_get_contents($path);
+        $pic='data:image/' . $type .';base64,' .base64_encode($data);
+
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('facture/factpdf.html.twig', [
+            'urlpict'=>$pic,
+            'facture'=>$fact,
+            'produits'=>$prodfacr
+
+        ]);
+
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser (force download)
+        $dompdf->stream("mypdf.pdf", [
+            "Attachment" => false
+        ]);
+
+
+        ///////
+     /*   return $this->render('facture/index.html.twig', [
+            'factures' => $factureRepository->findAll(),
+        ]); */
     }
 }

@@ -41,21 +41,23 @@
     <table class="table">
         <thead>
         <tr>
-            <th>DatePrevu</th>
+            <th>refrence</th>
             <th>Quantity</th>
             <th>FactureExport</th>
             <th>DeclarDouane</th>
+            <th>DatePrevu</th>
             <th>actions</th>
         </tr>
         </thead>
         <tbody>
         {% for prod_fact in prod_facts %}
             <tr>
-
-                <td>{{ prod_fact.datePrevu ? prod_fact.datePrevu|date('Y-m-d') : '' }}</td>
+                <td><a href="{{ path('app_produit_show', {'id': prod_fact.prodId.id}) }}">{{ prod_fact.prodId.refComplete }}</a></td>
                 <td>{{ prod_fact.quantity }}</td>
                 <td>{{ prod_fact.factureExport }}</td>
                 <td>{{ prod_fact.declarDouane }}</td>
+                <td>{{ prod_fact.datePrevu ? prod_fact.datePrevu|date('Y-m-d') : '' }}</td>
+
                 <td>
 {#                    <a href="{{ path('app_prod_fact_show', {'id': prod_fact.id}) }}">show</a>#}
                     <a href="{{ path('app_prod_fact_edit', {'id': prod_fact.id}) }}">edit</a>

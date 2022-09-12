@@ -4,11 +4,11 @@
 
 {% block change %}
     <h1>les factures</h1>
-
+    <input type="text" id="myInput" >
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>numero </th>
                 <th>Datefact</th>
                 <th>Typefac</th>
                 <th>AdressLiv</th>
@@ -30,7 +30,7 @@
                 <td>{{ facture.nbrPalette }}</td>
                 <td>
                     <a href="{{ path('app_facture_show', {'id': facture.id}) }}">show</a>
-                    <a >___imprimer</a>
+                    <a href="{{ path('app_facture_pdf', {'id': facture.id}) }}">___imprimer</a>
 
                     {#                    <a href="{{ path('app_facture_edit', {'id': facture.id}) }}">edit</a>#}
                 </td>
@@ -44,4 +44,17 @@
     </table>
 
     <a href="{{ path('app_facture_new') }}">Create new</a>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("table tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+
+            });
+        });
+    </script>
 {% endblock %}
