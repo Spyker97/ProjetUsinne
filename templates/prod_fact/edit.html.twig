@@ -1,0 +1,12 @@
+{% extends 'base.admin.html.twig' %}
+
+
+{% block change %}
+    <h1>Edit ProdFact</h1>
+
+    {{ include('prod_fact/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_facture_show', {'id': prod_fact.FactId.id}) }}">back to list</a>
+
+
+{% endblock %}

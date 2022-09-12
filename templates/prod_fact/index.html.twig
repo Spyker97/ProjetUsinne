@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ProdFact index{% endblock %}
+
+{% block body %}
+    <h1>ProdFact index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>DatePrevu</th>
+                <th>Quantity</th>
+                <th>FactureExport</th>
+                <th>DeclarDouane</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for prod_fact in prod_facts %}
+            <tr>
+                <td>{{ prod_fact.id }}</td>
+                <td>{{ prod_fact.datePrevu ? prod_fact.datePrevu|date('Y-m-d') : '' }}</td>
+                <td>{{ prod_fact.quantity }}</td>
+                <td>{{ prod_fact.factureExport }}</td>
+                <td>{{ prod_fact.declarDouane }}</td>
+                <td>
+                    <a href="{{ path('app_prod_fact_show', {'id': prod_fact.id}) }}">show</a>
+                    <a href="{{ path('app_prod_fact_edit', {'id': prod_fact.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_prod_fact_new') }}">Create new</a>
+{% endblock %}
