@@ -100,6 +100,11 @@ class Produit
      */
     private $colisage;
 
+    /**
+     * @ORM\Column(type="string", length=55, nullable=true)
+     */
+    private $pname;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -307,6 +312,18 @@ class Produit
     public function setColisage(?string $colisage): self
     {
         $this->colisage = $colisage;
+
+        return $this;
+    }
+
+    public function getPname(): ?string
+    {
+        return $this->pname;
+    }
+
+    public function setPname(?string $pname): self
+    {
+        $this->pname = $pname;
 
         return $this;
     }
