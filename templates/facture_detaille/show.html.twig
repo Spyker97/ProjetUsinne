@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FactureDetaille{% endblock %}
+
+{% block body %}
+    <h1>FactureDetaille</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ facture_detaille.id }}</td>
+            </tr>
+            <tr>
+                <th>PrixTotal</th>
+                <td>{{ facture_detaille.prixTotal }}</td>
+            </tr>
+            <tr>
+                <th>ChiffreAffaire</th>
+                <td>{{ facture_detaille.chiffreAffaire }}</td>
+            </tr>
+            <tr>
+                <th>PuTotal</th>
+                <td>{{ facture_detaille.puTotal }}</td>
+            </tr>
+            <tr>
+                <th>ProduitName</th>
+                <td>{{ facture_detaille.produitName }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_facture_detaille_index') }}">back to list</a>
+
+    <a href="{{ path('app_facture_detaille_edit', {'id': facture_detaille.id}) }}">edit</a>
+
+    {{ include('facture_detaille/_delete_form.html.twig') }}
+{% endblock %}

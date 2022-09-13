@@ -75,6 +75,31 @@ class Produit
      */
     private $produitName;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $volume;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $poid;
+
+    /**
+     * @ORM\OneToOne(targetEntity=FactureDetaille::class, mappedBy="numOf", cascade={"persist", "remove"})
+     */
+    private $factureDetaille;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Remarque;
+
+    /**
+     * @ORM\Column(type="string", length=55, nullable=true)
+     */
+    private $colisage;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -217,6 +242,71 @@ class Produit
     public function setProduitName(?ProduitName $produitName): self
     {
         $this->produitName = $produitName;
+
+        return $this;
+    }
+
+    public function getVolume(): ?float
+    {
+        return $this->volume;
+    }
+
+    public function setVolume(float $volume): self
+    {
+        $this->volume = $volume;
+
+        return $this;
+    }
+
+    public function getPoid(): ?float
+    {
+        return $this->poid;
+    }
+
+    public function setPoid(float $poid): self
+    {
+        $this->poid = $poid;
+
+        return $this;
+    }
+
+    public function getFactureDetaille(): ?FactureDetaille
+    {
+        return $this->factureDetaille;
+    }
+
+    public function setFactureDetaille(FactureDetaille $factureDetaille): self
+    {
+        // set the owning side of the relation if necessary
+        if ($factureDetaille->getNumOf() !== $this) {
+            $factureDetaille->setNumOf($this);
+        }
+
+        $this->factureDetaille = $factureDetaille;
+
+        return $this;
+    }
+
+    public function getRemarque(): ?string
+    {
+        return $this->Remarque;
+    }
+
+    public function setRemarque(?string $Remarque): self
+    {
+        $this->Remarque = $Remarque;
+
+        return $this;
+    }
+
+    public function getColisage(): ?string
+    {
+        return $this->colisage;
+    }
+
+    public function setColisage(?string $colisage): self
+    {
+        $this->colisage = $colisage;
 
         return $this;
     }

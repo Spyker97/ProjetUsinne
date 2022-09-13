@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Colisage;
 use App\Form\ColisageType;
 use App\Repository\ColisageRepository;
+use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,10 +19,14 @@ class ColisageController extends AbstractController
     /**
      * @Route("/", name="app_colisage_index", methods={"GET"})
      */
-    public function index(ColisageRepository $colisageRepository): Response
+    public function index(ColisageRepository $colisageRepository , ProduitRepository $prod): Response
     {
+
+
+
+
         return $this->render('colisage/index.html.twig', [
-            'colisages' => $colisageRepository->findAll(),
+            'colisages' => $prod->findAll(),
         ]);
     }
 
@@ -35,6 +40,15 @@ class ColisageController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $volume = 1 / $colisage->getNumOF()->getVolume() ;
+
+            $numColi = round($volume * $colisage->getNumOF()->getQteExpedie());
+            $colisage->getNumOF()->getProduitName()->getProduitName();
+            $colisage->setNumColi($numColi);
+            $qteExpd = $colisage->getNumOF()->getQteExpedie();
+            $colisage->setQuantite($qteExpd);
+            $colisage->setReference($colisage->getNumOF()->getRefPrincipale());
+            $colisage->setPoidColi($colisage->getNumOF()->getPoid() *$colisage->getNumOF()->getQteExpedie() );
             $colisageRepository->add($colisage, true);
 
             return $this->redirectToRoute('app_colisage_index', [], Response::HTTP_SEE_OTHER);
@@ -86,5 +100,11 @@ class ColisageController extends AbstractController
         }
 
         return $this->redirectToRoute('app_colisage_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+
+    public function calcule (ProduitRepository $poidunitaire ){
+
+
     }
 }

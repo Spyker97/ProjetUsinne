@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Produit;
 use App\Entity\ProduitName;
 use App\Form\ProduitType;
+use App\Form\ProduitType2;
 use App\Repository\ProduitRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -123,6 +124,27 @@ class ProduitController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    /**
+     * @Route("/{id}/edit2", name="app_produit_edit2", methods={"GET", "POST"})
+     */
+    public function edit2(Request $request, Produit $produit, ProduitRepository $produitRepository): Response
+    {
+        $form = $this->createForm(ProduitType2::class, $produit);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $produitRepository->add($produit, true);
+
+            return $this->redirectToRoute('app_colisage_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('colisage/edit.html.twig', [
+            'produit' => $produit,
+            'form' => $form,
+        ]);
+    }
+
 
     /**
      * @Route("/{id}", name="app_produit_delete", methods={"POST"})
