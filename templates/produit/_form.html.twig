@@ -56,6 +56,8 @@
 {{ form_start(form) }}
     {{ form_label(form.refComplete,'Refrence Complete') }} <br>
     {{ form_widget(form.refComplete, {'attr': {'class': 'inputF'}}) }}<br>
+{{ form_label(form.pname,'Nom de produit') }} <br>
+{{ form_widget(form.pname, {'attr': {'class': 'inputF'}}) }}<br>
     {{ form_label(form.produitName,'Nom de produit') }} <br>
     {{ form_widget(form.produitName, {'attr': {'class': 'inputF'}}) }}<br>
     {{ form_label(form.numCs,'Numero Cs') }} <br>
@@ -76,6 +78,10 @@
     {{ form_widget(form.tempsFacture, {'attr': {'class': 'inputF'}}) }}<br>
     {{ form_label(form.PU,'Prix Unitaire') }} <br>
     {{ form_widget(form.PU, {'attr': {'class': 'inputF'}}) }}<br>
+    {{ form_label(form.poid,'Poid') }} <br>
+    {{ form_widget(form.poid, {'attr': {'class': 'inputF'}}) }}<br>
+    {{ form_label(form.volume,'Volume') }} <br>
+    {{ form_widget(form.volume, {'attr': {'class': 'inputF'}}) }}<br>
 
     <button class="button-81" role="button">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

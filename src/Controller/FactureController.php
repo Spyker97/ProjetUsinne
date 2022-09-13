@@ -216,6 +216,7 @@ class FactureController extends AbstractController
 
             // return $this->redirectToRoute('app_facture_index', [], Response::HTTP_SEE_OTHER);
             $s=0 ;
+            $p = 0;
             for( $i=1;$i<=5 ;$i++){
                 $prodfact=new ProdFact();
                 if ($form2->get($ref."{$i}")->getData()){
@@ -244,6 +245,7 @@ class FactureController extends AbstractController
             //update
             $fact=$factureRepository->find($lastFact->getId());
             $fact->setNetPayer($s);
+
             $factureRepository->add($fact, true);
 
 
@@ -315,10 +317,13 @@ class FactureController extends AbstractController
     {
         $fact = $factureRepository->find($id);
         $prodfacr=$fact->getProdFacts();
-
+        $ss=0;
+        foreach ($prodfacr as $p){
+            $ss = $ss + ($p->getProdId()->getPoid() * $p->getQuantity());
+        }
         //pdf
 
-        $path='C:\wamp64\www\ProjetUsinne\public\facttt-1.jpg';
+        $path='C:\xampp\htdocs\ProjetUsinne\public\facttt-1.jpg';
         $type=pathinfo($path,PATHINFO_EXTENSION);
         $data=file_get_contents($path);
         $pic='data:image/' . $type .';base64,' .base64_encode($data);
@@ -334,7 +339,8 @@ class FactureController extends AbstractController
         $html = $this->renderView('facture/factpdf.html.twig', [
             'urlpict'=>$pic,
             'facture'=>$fact,
-            'produits'=>$prodfacr
+            'produits'=>$prodfacr,
+            'poids' => $ss
 
         ]);
 

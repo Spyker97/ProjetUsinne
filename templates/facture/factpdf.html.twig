@@ -55,7 +55,7 @@
 
             {% for produit in produits %}
             <tr>
-                <td style="width:170px">{{ produit.prodId.refComplete }}</td>
+                <td style="width:170px">{{ produit.prodId.pname }}</td>
                 <td>{{ produit.prodId.designation }}</td>
                 <td>{{ produit.factureExport }}</td>
                 <td>{{ produit.declarDouane }}</td>
@@ -78,8 +78,8 @@
 
             </tr>
             <tr>
-                <td style="width:170px">0</td>
-                <td>0</td>
+                <td style="width:170px">{{ poids }}</td>
+                <td>{{ poids }}</td>
                 <td>{{ facture.nbrPalette }}</td>
                 <td>{{ facture.netPayer }}</td>
 

@@ -19,6 +19,7 @@ class ProduitType extends AbstractType
             ->add('refComplete')
             ->add('numCs')
             ->add('refPrincipale')
+            ->add('pname')
             ->add('produitName', EntityType::class, array(
                 'class' => ProduitName::class,
                 'choice_label' => 'produitName',
