@@ -5,17 +5,17 @@
 
     <table class="table">
         <thead>
-            <tr>
+        <tr>
 
-                <th>Reference</th>
-                <th>Quantite</th>
-                <th>Remarque</th>
-                <th>colisage</th>
-                <th>Number Colis</th>
-                <th>Number Colis</th>
+            <th>Reference</th>
+            <th>Quantite</th>
+            <th>Remarque</th>
+            <th>colisage</th>
+            <th>Number Colis</th>
+            <th>Number Colis</th>
 
 
-            </tr>
+        </tr>
         </thead>
         <tbody>
         {% for colisage in colisages %}
@@ -25,7 +25,7 @@
                 <td>{{ colisage.qteExpedie }}</td>
                 <td>{{ colisage.Remarque }}</td>
                 <td>{{ colisage.colisage }}</td>
-                <td>{{ colisage.numColi }}</td>
+                <td>{{ colisage.numberColi }}</td>
                 <td>
 
                     <a href="{{ path('app_produit_edit2', {'id': colisage.id}) }}">edit</a>

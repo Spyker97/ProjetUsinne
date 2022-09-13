@@ -84,6 +84,16 @@ class ProduitController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+
+                $produitRepository->add($produit, true);
+
+                    $ss = $produit->getQteExpedie();
+                    $s = $produit->getVolume();
+            $numberColi  = ((1/ $s) /$ss) ;
+
+             $produit->setNumberColi($numberColi);
+
             $produitRepository->add($produit, true);
 
             return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);

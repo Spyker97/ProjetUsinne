@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Colisage;
 use App\Form\ColisageType;
 use App\Repository\ColisageRepository;
+use App\Repository\ProduitNameRepository;
 use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,13 +20,30 @@ class ColisageController extends AbstractController
     /**
      * @Route("/", name="app_colisage_index", methods={"GET"})
      */
-    public function index(ColisageRepository $colisageRepository , ProduitRepository $prod): Response
+    public function index(ColisageRepository $colisageRepository , ProduitRepository $prod ,ProduitNameRepository $prodName): Response
     {
 
 
+        $dd=array();
+
+        $facDett = new Colisage();
+            foreach ($prod->findAll() as $p) {
 
 
-        return $this->render('colisage/index.html.twig', [
+
+                $numberColi  = round(1,(1/ $p->getVolume()) * $p->getQteExpedie());
+
+                $facDett->setNumberColi($numberColi);
+
+                array_push($dd,$facDett);
+            }
+
+
+
+
+
+
+        return $this->render('colisage/index2.html.twig', [
             'colisages' => $prod->findAll(),
         ]);
     }
