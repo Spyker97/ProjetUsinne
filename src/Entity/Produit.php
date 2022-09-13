@@ -105,6 +105,11 @@ class Produit
      */
     private $pname;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $numberColi;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -324,6 +329,18 @@ class Produit
     public function setPname(?string $pname): self
     {
         $this->pname = $pname;
+
+        return $this;
+    }
+
+    public function getNumberColi(): ?float
+    {
+        return $this->numberColi;
+    }
+
+    public function setNumberColi(?float $numberColi): self
+    {
+        $this->numberColi = $numberColi;
 
         return $this;
     }
