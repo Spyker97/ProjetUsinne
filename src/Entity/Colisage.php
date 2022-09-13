@@ -48,6 +48,21 @@ class Colisage
      */
     private $numOF;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $poidColi;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $numberColi;
+
+
+    public function __toString(){
+        return $this->numOF; // Remplacer champ par une propriété "string" de l'entité
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -121,6 +136,30 @@ class Colisage
     public function setNumOF(Produit $numOF): self
     {
         $this->numOF = $numOF;
+
+        return $this;
+    }
+
+    public function getPoidColi(): ?float
+    {
+        return $this->poidColi;
+    }
+
+    public function setPoidColi(?float $poidColi): self
+    {
+        $this->poidColi = $poidColi;
+
+        return $this;
+    }
+
+    public function getNumberColi(): ?float
+    {
+        return $this->numberColi;
+    }
+
+    public function setNumberColi(?float $numberColi): self
+    {
+        $this->numberColi = $numberColi;
 
         return $this;
     }

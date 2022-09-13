@@ -15,6 +15,7 @@ class ProduitType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+
             ->add('refComplete')
             ->add('numCs')
             ->add('refPrincipale')
@@ -37,6 +38,8 @@ class ProduitType extends AbstractType
                 'empty_data' => '01/01/2000',])
             ->add('tempsFacture')
             ->add('PU')
+            ->add('volume')
+            ->add('poid')
         ;
     }
 

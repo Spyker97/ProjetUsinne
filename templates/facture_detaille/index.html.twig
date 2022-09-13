@@ -1,0 +1,39 @@
+{% extends 'base.admin.html.twig' %}
+
+
+{% block change %}
+    <h1>Facture Detaille index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>refPrincipale</th>
+                <th>qteExpedie</th>
+                <th>pu</th>
+                <th>puTotal</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% set s = 0 %}
+
+        {% for facture_detaille in facture_detailles %}
+            {% set s =  facture_detaille.PU * facture_detaille.qteExpedie %}
+            <tr>
+                <td>{{ facture_detaille.id }}</td>
+                <td>{{ facture_detaille.refComplete }}</td>
+                <td>{{ facture_detaille.qteExpedie }}</td>
+                <td>{{ facture_detaille.PU }}</td>
+                <td> {{ s }} </td>
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
