@@ -1,0 +1,60 @@
+{% extends 'base.admin.html.twig' %}
+
+
+
+{% block change %}
+    <h1>les factures</h1>
+    <input type="text" id="myInput" >
+    <table class="table">
+        <thead>
+            <tr>
+                <th>numero </th>
+                <th>Datefact</th>
+                <th>Typefac</th>
+                <th>AdressLiv</th>
+                <th>AdressFab</th>
+                <th>NetPayer</th>
+                <th>NbrPalette</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for facture in factures %}
+            <tr>
+                <td>{{ facture.id }}</td>
+                <td>{{ facture.datefact ? facture.datefact|date('Y-m-d') : '' }}</td>
+                <td>{{ facture.typefac }}</td>
+                <td>{{ facture.AdressLiv }}</td>
+                <td>{{ facture.adressFab }}</td>
+                <td>{{ facture.netPayer }}</td>
+                <td>{{ facture.nbrPalette }}</td>
+                <td>
+                    <a href="{{ path('app_facture_show', {'id': facture.id}) }}">show</a>
+                    <a href="{{ path('app_facture_pdf', {'id': facture.id}) }}">___imprimer</a>
+
+                    {#                    <a href="{{ path('app_facture_edit', {'id': facture.id}) }}">edit</a>#}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_facture_new') }}">Create new</a>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("table tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+
+            });
+        });
+    </script>
+{% endblock %}

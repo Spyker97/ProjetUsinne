@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New ProdFact{% endblock %}
+
+{% block body %}
+    <h1>Create new ProdFact</h1>
+
+    {{ include('prod_fact/_form.html.twig') }}
+
+    <a href="{{ path('app_prod_fact_index') }}">back to list</a>
+{% endblock %}

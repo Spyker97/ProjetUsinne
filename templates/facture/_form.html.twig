@@ -1,0 +1,171 @@
+<style>
+    #customers {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    #customers td, #customers th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #customers tr:nth-child(even){background-color: #f2f2f2;}
+
+    #customers tr:hover {background-color: #ddd;}
+
+    #customers th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #04AA6D;
+        color: white;
+    }
+
+
+     .inputF {
+         width: 50%;
+         padding: 12px 20px;
+         margin: 8px 0;
+         display: inline-block;
+         border: 1px solid #ccc;
+         border-radius: 4px;
+         box-sizing: border-box;
+     }
+</style>
+{#{{ form_start(form) }}
+    {{ form_widget(form) }}
+<button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}#}
+
+ {{ form_start(form2) }}
+{{ form_label(form2.date,'date facture') }} <br>
+{{ form_widget(form2.date, {'attr': {'class': 'inputF'}}) }}<br>
+{{ form_label(form2.typefac,'Titre de facture') }} <br>
+{{ form_widget(form2.typefac, {'attr': {'class': 'inputF'}}) }}<br>
+{{ form_label(form2.adrliv,'adresse livraison ') }} <br>
+{{ form_widget(form2.adrliv, {'attr': {'class': 'inputF'}}) }}<br>
+{{ form_label(form2.adrfab,'adresse de  fabrication') }} <br>
+{{ form_widget(form2.adrfab, {'attr': {'class': 'inputF'}}) }}<br>
+{#{{ form_label(form2.netpay,'net  pay') }} <br>
+{{ form_widget(form2.netpay, {'attr': {'class': 'inputF'}}) }}<br>#}
+{{ form_label(form2.nbrpaleete,'nombre de palette ') }} <br>
+{{ form_widget(form2.nbrpaleete, {'attr': {'class': 'inputF'}}) }}<br>
+<table id="customers">
+    <tr>
+        <td>
+            Refrence
+        </td>
+        <td>
+            facture Export
+        </td>
+        <td>
+            deaclaration douane
+        </td>
+        <td>
+            quantité
+        </td>
+    </tr>
+    <tr>
+        <td>
+
+            {{ form_widget(form2.ref1) }}<br>
+        </td>
+        <td>
+            {{ form_widget(form2.factExp1) }}<br>
+
+        </td>
+        <td>
+            {{ form_widget(form2.decldou1) }}<br>
+
+        </td>
+        <td>
+            {{ form_widget(form2.qte1) }}<br>
+
+        </td>
+
+    </tr>
+    <tr>
+        <td>
+
+            {{ form_widget(form2.ref2) }}<br>
+        </td>
+        <td>
+            {{ form_widget(form2.factExp2) }}<br>
+
+        </td>
+        <td>
+            {{ form_widget(form2.decldou2) }}<br>
+
+        </td>
+        <td>
+            {{ form_widget(form2.qte2) }}<br>
+
+        </td>
+
+    </tr>
+    <tr>
+        <td>
+
+            {{ form_widget(form2.ref3) }}<br>
+        </td>
+        <td>
+            {{ form_widget(form2.factExp3) }}<br>
+
+        </td>
+        <td>
+            {{ form_widget(form2.decldou3) }}<br>
+
+        </td>
+        <td>
+            {{ form_widget(form2.qte3) }}<br>
+
+        </td>
+
+    </tr>
+    <tr>
+        <td>
+
+            {{ form_widget(form2.ref4) }}<br>
+        </td>
+        <td>
+            {{ form_widget(form2.factExp4) }}<br>
+
+        </td>
+        <td>
+            {{ form_widget(form2.decldou4) }}<br>
+
+        </td>
+        <td>
+            {{ form_widget(form2.qte4) }}<br>
+
+        </td>
+
+    </tr>
+    <tr>
+        <td>
+
+            {{ form_widget(form2.ref5) }}<br>
+        </td>
+        <td>
+            {{ form_widget(form2.factExp5) }}<br>
+
+        </td>
+        <td>
+            {{ form_widget(form2.decldou5) }}<br>
+
+        </td>
+        <td>
+            {{ form_widget(form2.qte5) }}<br>
+
+        </td>
+
+    </tr>
+</table>
+
+{{ form_end(form2) }}
+
+
+
+
+

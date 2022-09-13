@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ProdFact{% endblock %}
+
+{% block body %}
+    <h1>ProdFact</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ prod_fact.id }}</td>
+            </tr>
+            <tr>
+                <th>DatePrevu</th>
+                <td>{{ prod_fact.datePrevu ? prod_fact.datePrevu|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Quantity</th>
+                <td>{{ prod_fact.quantity }}</td>
+            </tr>
+            <tr>
+                <th>FactureExport</th>
+                <td>{{ prod_fact.factureExport }}</td>
+            </tr>
+            <tr>
+                <th>DeclarDouane</th>
+                <td>{{ prod_fact.declarDouane }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_prod_fact_index') }}">back to list</a>
+
+    <a href="{{ path('app_prod_fact_edit', {'id': prod_fact.id}) }}">edit</a>
+
+    {{ include('prod_fact/_delete_form.html.twig') }}
+{% endblock %}

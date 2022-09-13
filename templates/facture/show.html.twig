@@ -1,0 +1,79 @@
+{% extends 'base.admin.html.twig' %}
+
+
+{% block change %}
+    <h1>Facture</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Numero facture</th>
+                <td>{{ facture.id }}</td>
+            </tr>
+            <tr>
+                <th>Datefact</th>
+                <td>{{ facture.datefact ? facture.datefact|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>titre facture</th>
+                <td>{{ facture.typefac }}</td>
+            </tr>
+            <tr>
+                <th>Adresse Livraison</th>
+                <td>{{ facture.AdressLiv }}</td>
+            </tr>
+            <tr>
+                <th>Adresse Fabrication</th>
+                <td>{{ facture.adressFab }}</td>
+            </tr>
+            <tr>
+                <th>Net Payer</th>
+                <td>{{ facture.netPayer }}</td>
+            </tr>
+            <tr>
+                <th>Nbr Palette</th>
+                <td>{{ facture.nbrPalette }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <h1>Les produits</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>refrence</th>
+            <th>Quantity</th>
+            <th>FactureExport</th>
+            <th>DeclarDouane</th>
+            <th>DatePrevu</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for prod_fact in prod_facts %}
+            <tr>
+                <td><a href="{{ path('app_produit_show', {'id': prod_fact.prodId.id}) }}">{{ prod_fact.prodId.refComplete }}</a></td>
+                <td>{{ prod_fact.quantity }}</td>
+                <td>{{ prod_fact.factureExport }}</td>
+                <td>{{ prod_fact.declarDouane }}</td>
+                <td>{{ prod_fact.datePrevu ? prod_fact.datePrevu|date('Y-m-d') : '' }}</td>
+
+                <td>
+{#                    <a href="{{ path('app_prod_fact_show', {'id': prod_fact.id}) }}">show</a>#}
+                    <a href="{{ path('app_prod_fact_edit', {'id': prod_fact.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+    <a href="{{ path('app_facture_index') }}">back to list</a>
+
+
+    {{ include('facture/_delete_form.html.twig') }}
+{% endblock %}

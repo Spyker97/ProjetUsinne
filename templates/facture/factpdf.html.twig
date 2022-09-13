@@ -1,0 +1,93 @@
+
+
+
+    <style>
+        #wrapper {
+            position: relative;
+            width: 400px;
+            height: 200px;
+        }
+
+        .imgfac {
+            position: absolute;
+            top:0;
+            left: 0px;
+            width: 700px;
+            margin-bottom: 200px;
+        }
+        .grid {
+            display: grid;
+            height: 300px;
+            border:1px red;
+            grid-template-columns: repeat(6, 1fr);
+            position: absolute;
+
+        }
+
+
+
+    </style>
+
+
+    {#   {* {{ include('facture/_form.html.twig') }} #}
+
+
+    <div id="wrapper" >
+        <img src="{{ urlpict}}"  class="imgfac">
+        <div  style="position: absolute; top: 65px; left: 300px;"> {{ facture.typefac }}</div>
+        <div  style="position: absolute; top: 65px; left: 550px;">  {{ facture.id }}</div>
+        <div  style="position: absolute; top: 115px; left: 400px; width: 100px">  {{ facture.datefact ? facture.datefact|date('Y-m-d') : '' }} </div>
+
+        <div  style="position: absolute; top: 200px; left: 50px; width: 230px" > {{ facture.AdressLiv }} </div>
+        <div  style="position: absolute; top: 200px; left: 400px; width: 250px " >{{ facture.adressFab }}  asa sa aaaaaaaaaaaaaa sasa  </div>
+        <table style="width:630px ;position: absolute;top: 340px;
+            left: 20px;">
+            <tr>
+                <th style="width:170px"></th>
+                <th style="width:18%"></th>
+                <th style="width:12%"></th>
+                <th style="width:12%"></th>
+                <th style="width:10%"></th>
+                <th style="width:10%"></th>
+                <th></th>
+            </tr>
+
+
+            {% for produit in produits %}
+            <tr>
+                <td style="width:170px">{{ produit.prodId.refComplete }}</td>
+                <td>{{ produit.prodId.designation }}</td>
+                <td>{{ produit.factureExport }}</td>
+                <td>{{ produit.declarDouane }}</td>
+                <td>{{ produit.quantity }}</td>
+                <td>{{ produit.prodId.PU }}</td>
+                {% set s = produit.prodId.PU * produit.quantity  %}
+                <td>{{ s }}</td>
+
+            </tr>
+            {% endfor %}
+        </table>
+
+        <table style="width:630px ;position: absolute;top: 709px;
+            left: 20px;">
+            <tr>
+                <th style="width:27%"></th>
+                <th style="width:18%"></th>
+                <th style="width:30%"></th>
+                <th style="width:12%"></th>
+
+            </tr>
+            <tr>
+                <td style="width:170px">0</td>
+                <td>0</td>
+                <td>{{ facture.nbrPalette }}</td>
+                <td>{{ facture.netPayer }}</td>
+
+
+            </tr>
+        </table>
+
+
+
+    </div>
+

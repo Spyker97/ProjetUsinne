@@ -1,0 +1,21 @@
+<style>
+    .inputF {
+        width: 50%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+</style>
+
+{{ form_start(form) }}
+    {{ form_label(form.datePrevu,'date prevu ') }} <br>
+    {{ form_widget(form.datePrevu, {'attr': {'class': 'inputF'}}) }}<br>
+    {{ form_label(form.factureExport,'facture export') }} <br>
+    {{ form_widget(form.factureExport, {'attr': {'class': 'inputF'}}) }}<br>
+    {{ form_label(form.declarDouane,'declaration douane') }} <br>
+    {{ form_widget(form.declarDouane, {'attr': {'class': 'inputF'}}) }}<br>
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
