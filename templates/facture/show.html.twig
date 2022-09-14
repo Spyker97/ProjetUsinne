@@ -3,7 +3,9 @@
 
 {% block change %}
     <h1>Facture</h1>
-
+    <div style="background-color: #8ba6ea ; width: 100px ;text-align: center ;border-radius: 10px ;margin-left: 1100px ; margin-bottom: 20px">
+        <a href="{{ path('app_facture_pdf', {'id': facture.id}) }}" style="font-size: 20px" >imprimer</a>
+    </div>
     <table class="table">
         <tbody>
             <tr>
