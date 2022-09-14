@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Facture;
 use App\Entity\ProdFact;
 use App\Entity\Produit;
+use App\Entity\Societe;
 use App\Form\FactureType;
 use App\Repository\FactureRepository;
 use App\Repository\ProdFactRepository;
@@ -31,7 +32,7 @@ class FactureController extends AbstractController
     public function index(FactureRepository $factureRepository): Response
     {
         return $this->render('facture/index.html.twig', [
-            'factures' => $factureRepository->findAll(),
+            'factures' => $factureRepository->findBy(array(), array('id' => 'DESC')),
         ]);
     }
 
@@ -59,16 +60,21 @@ class FactureController extends AbstractController
 
                 'required' => false
             ))
-            ->add('adrliv', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+           /* ->add('adrliv', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
 
 
                 'required' => false
+            ))*/
+            ->add('societe', EntityType::class, array(
+                'class' => Societe::class,
+                'choice_label' => 'name',
             ))
-            ->add('adrfab', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+           /* ->add('adrfab', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
 
 
-                'required' => false
-            ))
+                'required' => false,
+                'empty_data'=>"RELAIS  AUTOMATISMES INDUSTRIELS 23  RUE ALI ALHOUSSARI 2036 SOUKRA"
+            ))*/
          /*   ->add('netpay', NumberType::class, array(
 
 
@@ -119,7 +125,8 @@ class FactureController extends AbstractController
             ->add('qte2', NumberType::class, array(
 
 
-                'required' => false
+                'required' => false,
+                'empty_data'=>0
             ))
             ->add('ref3', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
 
@@ -200,8 +207,8 @@ class FactureController extends AbstractController
         $qte="qte";
         if ($form2->isSubmitted() && $form2->isValid()) {
             $facture->setDatefact($form2->get('date')->getData());
-            $facture->setAdressFab($form2->get('adrfab')->getData());
-            $facture->setAdressLiv($form2->get('adrliv')->getData());
+            $facture->setAdressFab("RELAIS  AUTOMATISMES INDUSTRIELS 23  RUE ALI ALHOUSSARI 2036 SOUKRA");
+            $facture->setAdressLiv($form2->get('societe')->getData()->getName()." ".$form2->get('societe')->getData()->getAdress());
             $facture->setNbrPalette($form2->get('nbrpaleete')->getData());
             /*$facture->setNetPayer($form2->get('netpay')->getData());*/
             $facture->setNetPayer(0);
@@ -234,7 +241,7 @@ class FactureController extends AbstractController
                     $prodrepo->add($prodid, true);
 
 
-                    $s+=$s+($prodid->getPU()*$form2->get($qte."{$i}")->getData());
+                    $s+=($prodid->getPU()*$form2->get($qte."{$i}")->getData());
 
 
 
@@ -249,12 +256,14 @@ class FactureController extends AbstractController
             $factureRepository->add($fact, true);
 
 
+            return $this->redirectToRoute('app_facture_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('facture/new.html.twig', [
             'facture' => $facture,
             'form' => $form,
             'form2'=>$form2,
+            'produits'=>$prodrepo->findAll()
 
         ]);
     }
@@ -323,7 +332,7 @@ class FactureController extends AbstractController
         }
         //pdf
 
-        $path='C:\xampp\htdocs\ProjetUsinne\public\facttt-1.jpg';
+        $path='C:\wamp64\www\ProjetUsinne\public\facttt-1.jpg';
         $type=pathinfo($path,PATHINFO_EXTENSION);
         $data=file_get_contents($path);
         $pic='data:image/' . $type .';base64,' .base64_encode($data);

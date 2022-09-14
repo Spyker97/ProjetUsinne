@@ -20,7 +20,22 @@
         </thead>
         <tbody>
         {% for facture in factures %}
-            <tr>
+            {% set s = 0 %}
+            {% for pf in facture.prodFacts %}
+
+                {% if pf.datePrevu %}
+                    {% set s = 1 %}
+                {% endif %}
+
+             {% endfor%}
+
+            {% if s==1 %}
+                <tr>
+            {% else %}
+                <tr style="background-color: #ee8d8d">
+            {% endif %}
+
+
                 <td>{{ facture.id }}</td>
                 <td>{{ facture.datefact ? facture.datefact|date('Y-m-d') : '' }}</td>
                 <td>{{ facture.typefac }}</td>
@@ -50,7 +65,7 @@
         $(document).ready(function(){
             $("#myInput").on("keyup", function() {
                 var value = $(this).val().toLowerCase();
-                $("table tr").filter(function() {
+                $("tbody tr").filter(function() {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
 

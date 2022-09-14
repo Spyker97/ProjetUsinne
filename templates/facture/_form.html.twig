@@ -32,6 +32,97 @@
          border-radius: 4px;
          box-sizing: border-box;
      }
+     <!-- -->
+    /********************************/
+    /* Dropdown Button */
+    .dropbtn {
+
+        border: none;
+    }
+
+
+
+    /* Dropdown Content (Hidden by Default) */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+    /* Links inside the dropdown */
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    /* Change color of dropdown links on hover */
+    .dropdown-content a:hover {background-color: #ddd;}
+
+    /* Show the dropdown menu on hover */
+
+    .dropdown1:hover .dropdown-content {display: block; }
+
+    /* The container <div> - needed to position the dropdown content */
+    .dropdown1 {
+        position: relative;
+        display: inline-block;
+    }
+    .dropdown2:hover .dropdown-content {display: block; }
+
+    /* The container <div> - needed to position the dropdown content */
+    .dropdown2 {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown3:hover .dropdown-content {display: block; }
+
+    /* The container <div> - needed to position the dropdown content */
+    .dropdown3 {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown4:hover .dropdown-content {display: block; }
+
+    /* The container <div> - needed to position the dropdown content */
+    .dropdown4 {
+        position: relative;
+        display: inline-block;
+    }
+    .dropdown5:hover .dropdown-content {display: block; }
+
+    /* The container <div> - needed to position the dropdown content */
+    .dropdown5 {
+        position: relative;
+        display: inline-block;
+    }
+/*
+    .searchinput:focus .dropdown-content {display: block; }
+*/
+
+    /* Change the background color of the dropdown button when the dropdown content is shown */
+    .dropdown:hover .dropbtn {
+
+        color: orange;
+    }
+
+    .elementDropped{
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        border: none;
+        width: 100%;
+    }
+    .elementDropped:hover {
+        background-color: #ddd;
+    }
 </style>
 {#{{ form_start(form) }}
     {{ form_widget(form) }}
@@ -43,14 +134,17 @@
 {{ form_widget(form2.date, {'attr': {'class': 'inputF'}}) }}<br>
 {{ form_label(form2.typefac,'Titre de facture') }} <br>
 {{ form_widget(form2.typefac, {'attr': {'class': 'inputF'}}) }}<br>
-{{ form_label(form2.adrliv,'adresse livraison ') }} <br>
-{{ form_widget(form2.adrliv, {'attr': {'class': 'inputF'}}) }}<br>
-{{ form_label(form2.adrfab,'adresse de  fabrication') }} <br>
-{{ form_widget(form2.adrfab, {'attr': {'class': 'inputF'}}) }}<br>
+{{ form_label(form2.societe,'Societe ') }} <br>
+{{ form_widget(form2.societe, {'attr': {'class': 'inputF'}}) }}<br>
+{#{{ form_label(form2.adrfab,'adresse de  fabrication') }} <br>
+{{ form_widget(form2.adrfab, {'attr': {'class': 'inputF'}}) }}<br>#}
 {#{{ form_label(form2.netpay,'net  pay') }} <br>
 {{ form_widget(form2.netpay, {'attr': {'class': 'inputF'}}) }}<br>#}
 {{ form_label(form2.nbrpaleete,'nombre de palette ') }} <br>
 {{ form_widget(form2.nbrpaleete, {'attr': {'class': 'inputF'}}) }}<br>
+
+
+
 <table id="customers">
     <tr>
         <td>
@@ -69,7 +163,17 @@
     <tr>
         <td>
 
-            {{ form_widget(form2.ref1) }}<br>
+            <div class="dropdown1" style="align-items: flex-start;">
+{#                <input type="text" id="searchinput" class="form-control searchinput" placeholder="depart..." (keyup)="inputSource()" [(ngModel)] ="fieldSource"  />#}
+                {{ form_widget(form2.ref1,{'attr':{'class':'searchinput1 i1'}}) }}
+                <div class="dropdown-content">
+                    {% for pd in produits %}
+                    <a class="elementDropped e1">{{ pd.refComplete }}</a>
+                    {% endfor %}
+
+
+                </div>
+            </div>
         </td>
         <td>
             {{ form_widget(form2.factExp1) }}<br>
@@ -88,7 +192,17 @@
     <tr>
         <td>
 
-            {{ form_widget(form2.ref2) }}<br>
+            <div class="dropdown2" style="align-items: flex-start;">
+                {#                <input type="text" id="searchinput" class="form-control searchinput" placeholder="depart..." (keyup)="inputSource()" [(ngModel)] ="fieldSource"  />#}
+                {{ form_widget(form2.ref2,{'attr':{'class':'searchinput2 a'}}) }}
+                <div class="dropdown-content">
+
+
+                    {% for pd in produits %}
+                        <a class="elementDropped e2">{{ pd.refComplete }}</a>
+                    {% endfor %}
+                </div>
+            </div>
         </td>
         <td>
             {{ form_widget(form2.factExp2) }}<br>
@@ -107,7 +221,17 @@
     <tr>
         <td>
 
-            {{ form_widget(form2.ref3) }}<br>
+            <div class="dropdown3" style="align-items: flex-start;">
+                {#                <input type="text" id="searchinput" class="form-control searchinput" placeholder="depart..." (keyup)="inputSource()" [(ngModel)] ="fieldSource"  />#}
+                {{ form_widget(form2.ref3,{'attr':{'class':'searchinput3 a'}}) }}
+                <div class="dropdown-content">
+
+
+                    {% for pd in produits %}
+                        <a class="elementDropped e3">{{ pd.refComplete }}</a>
+                    {% endfor %}
+                </div>
+            </div>
         </td>
         <td>
             {{ form_widget(form2.factExp3) }}<br>
@@ -126,8 +250,17 @@
     <tr>
         <td>
 
-            {{ form_widget(form2.ref4) }}<br>
-        </td>
+            <div class="dropdown4" style="align-items: flex-start;">
+                {#                <input type="text" id="searchinput" class="form-control searchinput" placeholder="depart..." (keyup)="inputSource()" [(ngModel)] ="fieldSource"  />#}
+                {{ form_widget(form2.ref4,{'attr':{'class':'searchinput4 a'}}) }}
+                <div class="dropdown-content">
+
+
+                    {% for pd in produits %}
+                        <a class="elementDropped e4">{{ pd.refComplete }}</a>
+                    {% endfor %}
+                </div>
+            </div>        </td>
         <td>
             {{ form_widget(form2.factExp4) }}<br>
 
@@ -145,7 +278,17 @@
     <tr>
         <td>
 
-            {{ form_widget(form2.ref5) }}<br>
+             <div class="dropdown5" style="align-items: flex-start;">
+                {#                <input type="text" id="searchinput" class="form-control searchinput" placeholder="depart..." (keyup)="inputSource()" [(ngModel)] ="fieldSource"  />#}
+                {{ form_widget(form2.ref5,{'attr':{'class':'searchinput5 a'}}) }}
+                <div class="dropdown-content">
+
+
+                    {% for pd in produits %}
+                        <a class="elementDropped e5">{{ pd.refComplete }}</a>
+                    {% endfor %}
+                </div>
+            </div>
         </td>
         <td>
             {{ form_widget(form2.factExp5) }}<br>
@@ -164,6 +307,87 @@
 </table>
 
 {{ form_end(form2) }}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function(){
+        $(".searchinput1").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $(".e1").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+
+        });
+    });
+
+    $(".e1").click(function(event) {
+       var value= $(event.target).text()
+        $('.searchinput1').val(value);
+    });
+    {# *************************** #}
+    $(document).ready(function(){
+        $(".searchinput2").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $(".e2").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+
+        });
+    });
+
+    $(".e2").click(function(event) {
+        var value= $(event.target).text()
+        $('.searchinput2').val(value);
+    });
+    {# *************************** #}
+    $(document).ready(function(){
+        $(".searchinput3").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $(".e3").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+
+        });
+    });
+
+    $(".e3").click(function(event) {
+        var value= $(event.target).text()
+        $('.searchinput3').val(value);
+    });
+    {# *************************** #}
+    $(document).ready(function(){
+        $(".searchinput4").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $(".e4").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+
+        });
+    });
+
+    $(".e4").click(function(event) {
+        var value= $(event.target).text()
+        $('.searchinput4').val(value);
+    });
+    {# *************************** #}
+    $(document).ready(function(){
+        $(".searchinput5").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $(".e5").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+
+        });
+    });
+
+    $(".e5").click(function(event) {
+        var value= $(event.target).text()
+        $('.searchinput5').val(value);
+    });
+    {# *************************** #}
+
+</script>
 
 
 
