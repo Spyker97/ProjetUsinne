@@ -88,11 +88,16 @@ class ProduitController extends AbstractController
 
                 $produitRepository->add($produit, true);
 
-                    $ss = $produit->getQteExpedie();
-                    $s = $produit->getVolume();
-            $numberColi  = ((1/ $s) /$ss) ;
-
-             $produit->setNumberColi($numberColi);
+            if ($produit->getQteExpedie() == 0 || $produit->getVolume() == 0) {
+                $produit->setNumberColi(0);
+            }else{
+                $ss = $produit->getQteExpedie();
+                $s = $produit->getVolume();
+                $sss = (1 / $s);
+                $aa = $ss / $sss;
+                $numberColi = ceil($aa);
+                $produit->setNumberColi($numberColi);
+            }
 
             $produitRepository->add($produit, true);
 
@@ -124,6 +129,19 @@ class ProduitController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $produitRepository->add($produit, true);
+
+            if ($produit->getQteExpedie() == 0 || $produit->getVolume() == 0) {
+                $produit->setNumberColi(0);
+            }else{
+                $ss = $produit->getQteExpedie();
+                $s = $produit->getVolume();
+                $sss = (1 / $s);
+                $aa = $ss / $sss;
+                $numberColi = ceil($aa);
+                $produit->setNumberColi($numberColi);
+            }
             $produitRepository->add($produit, true);
 
             return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
