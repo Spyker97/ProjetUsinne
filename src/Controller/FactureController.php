@@ -332,7 +332,7 @@ class FactureController extends AbstractController
         }
         //pdf
 
-        $path='C:\wamp64\www\ProjetUsinne\public\facttt-1.jpg';
+        $path='./facttt-1.jpg';
         $type=pathinfo($path,PATHINFO_EXTENSION);
         $data=file_get_contents($path);
         $pic='data:image/' . $type .';base64,' .base64_encode($data);
