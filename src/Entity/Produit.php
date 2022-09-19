@@ -110,6 +110,11 @@ class Produit
      */
     private $numberColi;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Societe::class, inversedBy="societes")
+     */
+    private $nameSociete;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -341,6 +346,18 @@ class Produit
     public function setNumberColi(?float $numberColi): self
     {
         $this->numberColi = $numberColi;
+
+        return $this;
+    }
+
+    public function getNameSociete(): ?Societe
+    {
+        return $this->nameSociete;
+    }
+
+    public function setNameSociete(?Societe $nameSociete): self
+    {
+        $this->nameSociete = $nameSociete;
 
         return $this;
     }

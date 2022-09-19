@@ -1,0 +1,39 @@
+{% extends 'base.admin.html.twig' %}
+
+
+{% block change %}
+    <h1>FactureDetaille index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th> Produit  Name </th>
+            <th>Chiffre D'affaire</th>
+            <th>Quantite Expedie</th>
+            <th>Moyenne de prix unitaire</th>
+            <th>nAME sOCITET</th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for facture_detaille in facture_detailles %}
+
+            <tr>
+                <td>{{  facture_detaille.produitName }}  </td>
+                <td>{{ facture_detaille.chiffreAffaire }}</td>
+                <td>{{  facture_detaille.prixTotal }}</td>
+                <td> {{  facture_detaille.puTotal }}</td>
+                <td> {{ societe }}</td>
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_facture_detaille_new') }}">Create new</a>
+{% endblock %}

@@ -8,6 +8,7 @@ use App\Form\FactureDetailleType;
 use App\Repository\FactureDetailleRepository;
 use App\Repository\ProduitNameRepository;
 use App\Repository\ProduitRepository;
+use App\Repository\SocieteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,36 +22,79 @@ class FactureDetailleController extends AbstractController
     /**
      * @Route("/global", name="app_facture", methods={"GET"})
      */
-    public function index2(FactureDetailleRepository $factureDetailleRepository, ProduitRepository $prod ,ProduitNameRepository $prodName): Response
+    public function index2(FactureDetailleRepository $factureDetailleRepository, ProduitRepository $prod, ProduitNameRepository $prodName): Response
     {
-        $dd=array();
+        $dd = array();
 
-         foreach ($prodName->findAll() as $pN){
-             $chifAff = 0;
-             $qteTot = 0;
-             $prixU = 0;
-             $facDett = new FactureDetaille();
+        foreach ($prodName->findAll() as $pN) {
+            $chifAff = 0;
+            $qteTot = 0;
+            $prixU = 0;
+            $facDett = new FactureDetaille();
 
-              foreach ($prod->findAll() as $p) {
-                  if ($p->getProduitName()->getProduitName() == $pN->getProduitName() ){
-                      $chifAff += ($p->getQteExpedie() * $p->getPU());
-                      $qteTot += $p->getQteExpedie()  ;
-                  }
-             }
-              $prixU = $chifAff / $qteTot;
-              $facDett->setChiffreAffaire($chifAff);
-              $facDett->setPrixTotal($qteTot);
-              $facDett->setProduitName($pN->getProduitName());
-              $facDett->setPuTotal($prixU);
-                 array_push($dd,$facDett);
-         }
-
+            foreach ($prod->findAll() as $p) {
+                if ($p->getProduitName()->getProduitName() == $pN->getProduitName()) {
+                    $chifAff += ($p->getQteExpedie() * $p->getPU());
+                    $qteTot += $p->getQteExpedie();
+                }
+            }
+            $prixU = $chifAff / $qteTot;
+            $facDett->setChiffreAffaire($chifAff);
+            $facDett->setPrixTotal($qteTot);
+            $facDett->setProduitName($pN->getProduitName());
+            $facDett->setPuTotal($prixU);
+            array_push($dd, $facDett);
+        }
 
 
         return $this->render('facture_detaille/index2.html.twig', [
             'facture_detailles' => $dd,
         ]);
     }
+
+    /**
+     * @Route("/global/societe", name="app_facture_societe", methods={"GET"})
+     */
+    public function index3(FactureDetailleRepository $factureDetailleRepository, ProduitRepository $prod, ProduitNameRepository $prodName, SocieteRepository $societe): Response
+    {
+        $dd = array();
+        $societee ='';
+
+        foreach ($societe->findAll() as $so) {
+
+            foreach ($prodName->findAll() as $pN) {
+                $chifAff = 0;
+                $qteTot = 0;
+                $prixU = 0;
+
+                $facDett = new FactureDetaille();
+
+                foreach ($prod->findAll() as $p) {
+                    if ($p->getProduitName()->getProduitName() == $pN->getProduitName()) {
+                        $chifAff += ($p->getQteExpedie() * $p->getPU());
+                        $qteTot += $p->getQteExpedie();
+                        $societee = $p->getNameSociete();
+                    }
+                }
+                $prixU = $chifAff / $qteTot;
+                $facDett->setChiffreAffaire($chifAff);
+                $facDett->setPrixTotal($qteTot);
+                $facDett->setProduitName($pN->getProduitName());
+                $facDett->setPuTotal($prixU);
+
+                array_push($dd, $facDett);
+            }
+
+        }
+            return $this->render('facture_detaille/index3.html.twig', [
+                'facture_detailles' => $dd,
+                'societe' =>  $societee
+            ]);
+        }
+
+
+
+
 
     /**
      * @Route("/", name="app_facture_detaille_index", methods={"GET"})
