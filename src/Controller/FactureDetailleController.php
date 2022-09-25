@@ -38,6 +38,9 @@ class FactureDetailleController extends AbstractController
                     $qteTot += $p->getQteExpedie();
                 }
             }
+            if($qteTot== 0)
+                $prixU=0;
+            else
             $prixU = $chifAff / $qteTot;
             $facDett->setChiffreAffaire($chifAff);
             $facDett->setPrixTotal($qteTot);
@@ -53,42 +56,39 @@ class FactureDetailleController extends AbstractController
     }
 
     /**
-     * @Route("/global/societe", name="app_facture_societe", methods={"GET"})
+     * @Route("/societe/global", name="app_facture_societe", methods={"GET"})
      */
     public function index3(FactureDetailleRepository $factureDetailleRepository, ProduitRepository $prod, ProduitNameRepository $prodName, SocieteRepository $societe): Response
     {
         $dd = array();
-        $societee ='';
 
+
+        $fcd = new FactureDetaille() ;
         foreach ($societe->findAll() as $so) {
 
-            foreach ($prodName->findAll() as $pN) {
-                $chifAff = 0;
-                $qteTot = 0;
-                $prixU = 0;
+            foreach ($prodName->findAll() as $pn){
+                $total=0;
+                $qttotal = 0 ;
+                foreach ($so->getProdFacts() as $pf){
+                        if($pn->getProduitName() == $pf->getProdId()->getProduitName()->getProduitName()){
+                            $qttotal =$qttotal+ $pf->getQuantity();
+                            $total = $total +($pf->getProdId()->getPU() * $pf->getQuantity());
+                        }
 
-                $facDett = new FactureDetaille();
-
-                foreach ($prod->findAll() as $p) {
-                    if ($p->getProduitName()->getProduitName() == $pN->getProduitName()) {
-                        $chifAff += ($p->getQteExpedie() * $p->getPU());
-                        $qteTot += $p->getQteExpedie();
-                        $societee = $p->getNameSociete();
-                    }
                 }
-                $prixU = $chifAff / $qteTot;
-                $facDett->setChiffreAffaire($chifAff);
-                $facDett->setPrixTotal($qteTot);
-                $facDett->setProduitName($pN->getProduitName());
-                $facDett->setPuTotal($prixU);
 
-                array_push($dd, $facDett);
+                $fcd->setPu($total);
+                $fcd->setRefPrincipale($so->getName());
+                $fcd->setQteExpedie($qttotal);
+                $fcd->setProduitName($pn->getProduitName());
+                array_push($dd, $fcd);
+
             }
 
         }
-            return $this->render('facture_detaille/index3.html.twig', [
-                'facture_detailles' => $dd,
-                'societe' =>  $societee
+            return $this->render('facture_detaille/hh.html.twig', [
+                'facture_detailles' => $dd
+
             ]);
         }
 

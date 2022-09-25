@@ -47,6 +47,11 @@ class ProdFact
      */
     private $declarDouane;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Societe::class, inversedBy="prodFacts")
+     */
+    private $societeee;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +125,18 @@ class ProdFact
     public function setDeclarDouane(?string $declarDouane): self
     {
         $this->declarDouane = $declarDouane;
+
+        return $this;
+    }
+
+    public function getSocieteee(): ?Societe
+    {
+        return $this->societeee;
+    }
+
+    public function setSocieteee(?Societe $societeee): self
+    {
+        $this->societeee = $societeee;
 
         return $this;
     }

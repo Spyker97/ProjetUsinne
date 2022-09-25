@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SocieteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -38,6 +40,16 @@ class Societe
      * @Assert\Email()
      */
     private $email;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ProdFact::class, mappedBy="societeee")
+     */
+    private $prodFacts;
+
+    public function __construct()
+    {
+        $this->prodFacts = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -88,6 +100,36 @@ class Societe
     public function setEmail(?string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProdFact>
+     */
+    public function getProdFacts(): Collection
+    {
+        return $this->prodFacts;
+    }
+
+    public function addProdFact(ProdFact $prodFact): self
+    {
+        if (!$this->prodFacts->contains($prodFact)) {
+            $this->prodFacts[] = $prodFact;
+            $prodFact->setSocieteee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProdFact(ProdFact $prodFact): self
+    {
+        if ($this->prodFacts->removeElement($prodFact)) {
+            // set the owning side to null (unless already changed)
+            if ($prodFact->getSocieteee() === $this) {
+                $prodFact->setSocieteee(null);
+            }
+        }
 
         return $this;
     }

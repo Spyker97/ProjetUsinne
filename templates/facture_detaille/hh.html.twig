@@ -5,25 +5,44 @@
     <h1>FactureDetaille index</h1>
 
     <table class="table">
+
         <thead>
+
         <tr>
+
             <th> Produit  Name </th>
             <th>ss</th>
             <th>Quantite Expedie</th>
 
-
-
         </tr>
+
         </thead>
+
+
+
+
+
+
+
+
         <tbody>
+
         {% for facture_detaille in facture_detailles %}
+            <tr>
+                <td>
+                    <div style="color: purple;" >
+
+                        <h4>Name Societe: {{  facture_detaille.getRefPrincipale }}</h4>
+
+                    </div>
+                </td>
+            </tr>
 
             <tr>
+
                 <td>{{  facture_detaille.produitName }}  </td>
                 <td>{{ facture_detaille.pu }}</td>
                 <td>{{  facture_detaille.qteExpedie }}</td>
-
-
 
             </tr>
         {% else %}

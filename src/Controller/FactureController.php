@@ -231,10 +231,13 @@ class FactureController extends AbstractController
                     $prodfact->setQuantity($form2->get($qte."{$i}")->getData());
                     $prodfact->setDeclarDouane($form2->get($decldou."{$i}")->getData());
                     $prodfact->setFactureExport($form2->get($factExp."{$i}")->getData());
+
                     $prodfact->setFactId($lastFact);
                     $prodid = $prodrepo->findOneBy(array('refComplete'=>$form2->get($ref."{$i}")->getData()));
 
                     $prodfact->setProdId($prodid);
+                    $prodfact->setSocieteee($form2->get('societe')->getData());
+
                     $prodFactRepository->add($prodfact, true);
 
                     $prodid->setQteExpedie($form2->get($qte."{$i}")->getData()+$prodid->getQteExpedie());
