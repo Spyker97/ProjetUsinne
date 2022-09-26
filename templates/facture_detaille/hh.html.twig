@@ -4,6 +4,8 @@
 {% block change %}
     <h1>FactureDetaille index</h1>
 
+{% for societee in societe %}
+        <h5>SOccicete Name: {{ societee.name }}</h5>
     <table class="table">
 
         <thead>
@@ -18,26 +20,10 @@
 
         </thead>
 
-
-
-
-
-
-
-
         <tbody>
-
         {% for facture_detaille in facture_detailles %}
-            <tr>
-                <td>
-                    <div style="color: purple;" >
 
-                        <h4>Name Societe: {{  facture_detaille.getRefPrincipale }}</h4>
-
-                    </div>
-                </td>
-            </tr>
-
+            {% if  facture_detaille.getRefPrincipale == societee.name %}
             <tr>
 
                 <td>{{  facture_detaille.produitName }}  </td>
@@ -45,6 +31,7 @@
                 <td>{{  facture_detaille.qteExpedie }}</td>
 
             </tr>
+            {% endif %}
         {% else %}
             <tr>
                 <td colspan="6">no records found</td>
@@ -53,5 +40,5 @@
         </tbody>
     </table>
 
-
+{% endfor %}
 {% endblock %}
