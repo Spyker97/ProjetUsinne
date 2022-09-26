@@ -42,6 +42,7 @@ class FactureDetailleController extends AbstractController
                 $prixU=0;
             else
             $prixU = $chifAff / $qteTot;
+
             $facDett->setChiffreAffaire($chifAff);
             $facDett->setPrixTotal($qteTot);
             $facDett->setProduitName($pN->getProduitName());
