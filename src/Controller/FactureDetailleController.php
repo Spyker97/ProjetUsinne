@@ -42,6 +42,7 @@ class FactureDetailleController extends AbstractController
                 $prixU=0;
             else
             $prixU = $chifAff / $qteTot;
+
             $facDett->setChiffreAffaire($chifAff);
             $facDett->setPrixTotal($qteTot);
             $facDett->setProduitName($pN->getProduitName());
@@ -62,7 +63,6 @@ class FactureDetailleController extends AbstractController
     {
         $dd = array();
 
-
         $fcd = new FactureDetaille() ;
         foreach ($societe->findAll() as $so) {
 
@@ -74,7 +74,6 @@ class FactureDetailleController extends AbstractController
                             $qttotal =$qttotal+ $pf->getQuantity();
                             $total = $total +($pf->getProdId()->getPU() * $pf->getQuantity());
                         }
-
                 }
 
                 $fcd->setPu($total);
@@ -82,26 +81,20 @@ class FactureDetailleController extends AbstractController
                 $fcd->setQteExpedie($qttotal);
                 $fcd->setProduitName($pn->getProduitName());
                 array_push($dd, $fcd);
-
             }
 
         }
             return $this->render('facture_detaille/hh.html.twig', [
-                'facture_detailles' => $dd
-
+                'facture_detailles' => $dd,
+                'societe' => $societe->findAll(),
             ]);
         }
-
-
-
-
 
     /**
      * @Route("/", name="app_facture_detaille_index", methods={"GET"})
      */
     public function index(FactureDetailleRepository $factureDetailleRepository, ProduitRepository $prod): Response
     {
-
 
         return $this->render('facture_detaille/index.html.twig', [
             'facture_detailles' => $prod->findAll(),

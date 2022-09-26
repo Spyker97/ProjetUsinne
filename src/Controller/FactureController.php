@@ -60,26 +60,26 @@ class FactureController extends AbstractController
 
                 'required' => false
             ))
-           /* ->add('adrliv', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+            /* ->add('adrliv', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
 
 
-                'required' => false
-            ))*/
+                 'required' => false
+             ))*/
             ->add('societe', EntityType::class, array(
                 'class' => Societe::class,
                 'choice_label' => 'name',
             ))
-           /* ->add('adrfab', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+            /* ->add('adrfab', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
 
 
-                'required' => false,
-                'empty_data'=>"RELAIS  AUTOMATISMES INDUSTRIELS 23  RUE ALI ALHOUSSARI 2036 SOUKRA"
-            ))*/
-         /*   ->add('netpay', NumberType::class, array(
+                 'required' => false,
+                 'empty_data'=>"RELAIS  AUTOMATISMES INDUSTRIELS 23  RUE ALI ALHOUSSARI 2036 SOUKRA"
+             ))*/
+            /*   ->add('netpay', NumberType::class, array(
 
 
-                'required' => false
-            ))*/
+                   'required' => false
+               ))*/
             ->add('nbrpaleete', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
 
 
@@ -194,6 +194,160 @@ class FactureController extends AbstractController
                 'required' => false,
                 'empty_data'=>0
             ))
+            ->add('ref6', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+
+
+                'required' => false
+            ))
+            ->add('factExp6', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+
+
+                'required' => false
+            ))
+            ->add('decldou6', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+
+
+                'required' => false
+            ))
+
+            ->add('qte6', NumberType::class, array(
+
+
+                'required' => false,
+                'empty_data'=>0
+            ))
+            ->add('ref7', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+
+
+                'required' => false
+            ))
+            ->add('factExp7', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+
+
+                'required' => false
+            ))
+            ->add('decldou7', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+
+
+                'required' => false
+            ))
+
+            ->add('qte7', NumberType::class, array(
+
+
+                'required' => false,
+                'empty_data'=>0
+            ))
+            ->add('ref8', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+
+
+                'required' => false
+            ))
+            ->add('factExp8', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+
+
+                'required' => false
+            ))
+            ->add('decldou8', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+
+
+                'required' => false
+            ))
+
+            ->add('qte8', NumberType::class, array(
+
+
+                'required' => false,
+                'empty_data'=>0
+            ))
+            ->add('ref9', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+
+
+                'required' => false
+            ))
+            ->add('factExp9', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+
+
+                'required' => false
+            ))
+            ->add('decldou9', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+
+
+                'required' => false
+            ))
+
+            ->add('qte9', NumberType::class, array(
+
+
+                'required' => false,
+                'empty_data'=>0
+            ))
+            ->add('ref10', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+
+
+                'required' => false
+            ))
+            ->add('factExp10', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+
+
+                'required' => false
+            ))
+            ->add('decldou10', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+
+
+                'required' => false
+            ))
+
+            ->add('qte10', NumberType::class, array(
+
+
+                'required' => false,
+                'empty_data'=>0
+            ))
+            ->add('ref11', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+
+
+                'required' => false
+            ))
+            ->add('factExp11', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+
+
+                'required' => false
+            ))
+            ->add('decldou11', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+
+
+                'required' => false
+            ))
+
+            ->add('qte11', NumberType::class, array(
+
+
+                'required' => false,
+                'empty_data'=>0
+            ))
+            ->add('ref12', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+
+
+                'required' => false
+            ))
+            ->add('factExp12', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+
+
+                'required' => false
+            ))
+            ->add('decldou12', \Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
+
+
+                'required' => false
+            ))
+
+            ->add('qte12', NumberType::class, array(
+
+
+                'required' => false,
+                'empty_data'=>0
+            ))
             ->add("Save",SubmitType::class)
 
 
@@ -224,20 +378,17 @@ class FactureController extends AbstractController
             // return $this->redirectToRoute('app_facture_index', [], Response::HTTP_SEE_OTHER);
             $s=0 ;
             $p = 0;
-            for( $i=1;$i<=5 ;$i++){
+            for( $i=1;$i<=12 ;$i++){
                 $prodfact=new ProdFact();
                 if ($form2->get($ref."{$i}")->getData()){
 
                     $prodfact->setQuantity($form2->get($qte."{$i}")->getData());
                     $prodfact->setDeclarDouane($form2->get($decldou."{$i}")->getData());
                     $prodfact->setFactureExport($form2->get($factExp."{$i}")->getData());
-
                     $prodfact->setFactId($lastFact);
                     $prodid = $prodrepo->findOneBy(array('refComplete'=>$form2->get($ref."{$i}")->getData()));
 
                     $prodfact->setProdId($prodid);
-                    $prodfact->setSocieteee($form2->get('societe')->getData());
-
                     $prodFactRepository->add($prodfact, true);
 
                     $prodid->setQteExpedie($form2->get($qte."{$i}")->getData()+$prodid->getQteExpedie());
@@ -270,7 +421,6 @@ class FactureController extends AbstractController
 
         ]);
     }
-
     /**
      * @Route("/{id}", name="app_facture_show", methods={"GET"})
      */
